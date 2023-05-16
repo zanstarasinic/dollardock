@@ -28,5 +28,8 @@ urlpatterns = [
     path('api/account/', views.get_user_account, name='account-list'),
     path('api/account/<int:account_id>/transactions/', views.get_account_transactions, name='account-transactions'),
     path('api/account/<int:account_id>/transactions/create', views.create_transaction, name='add-account-transaction'),
+    path('api/account/<int:account_id>/transactions/<int:transaction_id>/delete/', views.delete_transaction, name='delete-transaction'),
+    path('api/account/<int:account_id>/transactions/<int:transaction_id>/edit/', views.edit_transaction, name='edit-transaction'),
+
 
 ]

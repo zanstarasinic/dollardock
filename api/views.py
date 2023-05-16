@@ -23,7 +23,9 @@ def logout_view(request):
 def register_view(request):
     serializer = UserSerializer(data=request.data)
     if serializer.is_valid():
-        serializer.save()
+        user = serializer.save()
+        account = Account.objects.create(owner=user)
+
         return Response({'message': 'User registered successfully'}, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -64,3 +66,26 @@ def create_transaction(request, account_id):
         serializer.save()
         return Response(serializer.data, status=201)
     return Response(serializer.errors, status=400)
+
+@api_view(['DELETE'])
+@permission_classes([IsAuthenticated])
+def delete_transaction(request, transaction_id):
+    try:
+        transaction = Transaction.objects.get(id=transaction_id)
+        transaction.delete()
+        return Response({'message': 'Transaction deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+    except Transaction.DoesNotExist:
+        return Response({'error': 'Transaction not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def edit_transaction(request, transaction_id):
+    try:
+        transaction = Transaction.objects.get(id=transaction_id)
+        serializer = TransactionSerializer(instance=transaction, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    except Transaction.DoesNotExist:
+        return Response({'error': 'Transaction not found'}, status=status.HTTP_404_NOT_FOUND)
