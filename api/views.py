@@ -51,3 +51,16 @@ def get_account_transactions(request, account_id):
         return Response(serializer.data)
     except Account.DoesNotExist:
         return Response({'message': 'Transanctions not found'}, status=status.HTTP_404_NOT_FOUND)
+
+@api_view(['POST'])
+def create_transaction(request, account_id):
+    account = Account.objects.get(id=account_id)
+    data = request.data.copy()  # Make a copy of the request data
+    data['account'] = account.id  # Set the account ID in the data
+    # Create a new transaction associated with the account
+    serializer = TransactionSerializer(data=data)
+    if serializer.is_valid():
+        # Set the account field of the transaction to the retrieved account
+        serializer.save()
+        return Response(serializer.data, status=201)
+    return Response(serializer.errors, status=400)

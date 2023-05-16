@@ -27,5 +27,6 @@ urlpatterns = [
     path('api/register/', views.register_view, name='register'),
     path('api/account/', views.get_user_account, name='account-list'),
     path('api/account/<int:account_id>/transactions/', views.get_account_transactions, name='account-transactions'),
+    path('api/account/<int:account_id>/transactions/create', views.create_transaction, name='add-account-transaction'),
 
 ]
