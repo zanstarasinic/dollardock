@@ -23,14 +23,14 @@ example:
     "password": "pass123"
 }`
 Return: 200 (Success), token: <token_id> | 400 (Failed)
-- `localhost:8000/api/auth/logout/`: Use POST method with "Authentication" : "Token token_id" in headers
+- `localhost:8000/api/auth/logout/`: Use POST method with "Authorization" : "Token token_id" in headers
 Return: 200 (Success) | 400 (No credentials)
-- `localhost:8000/api/account/`: Use GET method with "Authentication" : "Token token_id" in headers
+- `localhost:8000/api/account/`: Use GET method with "Authorization" : "Token token_id" in headers
 Return: 200 (Success), json array of Accounts (should be one) | 404 (Account not found)
-- `localhost:8000/api/account/<int:account_id>/transactions/`: Use GET method with "Authentication" : "Token token_id" in headers,
+- `localhost:8000/api/account/<int:account_id>/transactions/`: Use GET method with "Authorization" : "Token token_id" in headers,
 """<int:account_id>""" replace with id of active account.
 Return: 200 (Success), json array of Transactions | 404 (Account not found)
-- `localhost:8000/api/account/<int:account_id>/transactions/create`: Use POST method with "Authentication" : "Token token_id" in headers,
+- `localhost:8000/api/account/<int:account_id>/transactions/create`: Use POST method with "Authorization" : "Token token_id" in headers,
 new transaction data in body.
 example:
 `{
