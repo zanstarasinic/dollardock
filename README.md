@@ -16,14 +16,14 @@ example:
     "password": "pass123"
 }`
 Return: 201 (Success) | 400 (Failed)
-- `localhost:8000/api/login/`: Use POST method with username and password in body.
+- `localhost:8000/api/auth/login/`: Use POST method with username and password in body.
 example: 
 `{
     "username": "john_doe",
     "password": "pass123"
 }`
 Return: 200 (Success), token: <token_id> | 400 (Failed)
-- `localhost:8000/api/logout/`: Use POST method with "Authentication" : "Token token_id" in headers
+- `localhost:8000/api/auth/logout/`: Use POST method with "Authentication" : "Token token_id" in headers
 Return: 200 (Success) | 400 (No credentials)
 - `localhost:8000/api/account/`: Use GET method with "Authentication" : "Token token_id" in headers
 Return: 200 (Success), json array of Accounts (should be one) | 404 (Account not found)
